@@ -1,0 +1,11 @@
+{
+    "AppSyncApiName": "rybble",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authrybble69bfc2e4",
+            "Outputs.UserPoolId"
+        ]
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-rybble-dev-115923-authRole",
+            "UnauthRoleArn": "arn:aws:iam::921249640696:role/amplify-rybble-dev-115923-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::921249640696:role/amplify-rybble-dev-115923-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "amplify-rybble-dev-115923-deployment",
+            "UnauthRoleName": "amplify-rybble-dev-115923-unauthRole",
+            "StackName": "amplify-rybble-dev-115923",
+            "StackId": "arn:aws:cloudformation:us-east-2:921249640696:stack/amplify-rybble-dev-115923/9de4b4e0-d684-11ea-a72f-0279c28b0d70",
+            "AmplifyAppId": "d2tz2q1sn2j3lb"
+        },
+        "categories": {
+            "auth": {
+                "rybble69bfc2e4": {}
+            }
+        }
+    }
+}
