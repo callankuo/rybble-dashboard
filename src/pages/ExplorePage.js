@@ -5,6 +5,10 @@ import { withRouter } from "react-router-dom";
 import ExploreQueryBuilder from "../components/QueryBuilder/ExploreQueryBuilder";
 import { GET_DASHBOARD_ITEM } from "../graphql/queries";
 import TitleModal from "../components/TitleModal.js";
+import { isQueryPresent } from "@cubejs-client/react";
+import PageHeader from "../components/PageHeader.js";
+import ExploreTitle from "../components/ExploreTitle.js";
+
 const ExplorePage = withRouter(({ history, location }) => {
   const [addingToDashboard, setAddingToDashboard] = useState(false);
   const params = new URLSearchParams(location.search);
@@ -36,32 +40,37 @@ const ExplorePage = withRouter(({ history, location }) => {
   }
 
   return (
-    <div>
-      <TitleModal
-        history={history}
-        itemId={itemId}
-        titleModalVisible={titleModalVisible}
-        setTitleModalVisible={setTitleModalVisible}
-        setAddingToDashboard={setAddingToDashboard}
-        finalVizState={finalVizState}
-        setTitle={setTitle}
-        finalTitle={finalTitle}
-      />
-      <ExploreQueryBuilder
-        vizState={finalVizState}
-        setVizState={setVizState}
-        chartExtra={[
-          <Button
-            key="button"
-            type="primary"
-            loading={addingToDashboard}
-            onClick={() => setTitleModalVisible(true)}
-          >
-            {itemId ? "Update" : "Add to Dashboard"}
-          </Button>
-        ]}
-      />
-    </div>
-  );
+        <div>
+          <TitleModal
+            history={history}
+    
+            itemId={itemId}
+            titleModalVisible={titleModalVisible}
+            setTitleModalVisible={setTitleModalVisible}
+            setAddingToDashboard={setAddingToDashboard}
+            finalVizState={finalVizState}
+            setTitle={setTitle}
+            finalTitle={finalTitle}
+          />
+          <PageHeader
+            title={<ExploreTitle itemId={itemId} />}
+            button={
+              <Button
+                key="button"
+                type="primary"
+                loading={addingToDashboard}
+                disabled={!isQueryPresent(finalVizState.query || {})}
+                onClick={() => setTitleModalVisible(true)}
+              >
+                {itemId ? "Update" : "Add to Dashboard"}
+              </Button>
+            }
+          />
+          <ExploreQueryBuilder
+            vizState={finalVizState}
+            setVizState={setVizState}
+          />
+        </div>
+      );
 });
 export default ExplorePage;

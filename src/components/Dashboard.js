@@ -40,7 +40,12 @@ const Dashboard = ({ children, dashboardItems }) => {
   };
 
   return (
-    <ReactGridLayout cols={12} rowHeight={50} onLayoutChange={onLayoutChange}>
+    <ReactGridLayout
+      style={{marginLeft: 18, marginRight: 18, marginTop: 6}}
+      cols={12}
+      rowHeight={50}
+      onLayoutChange={onLayoutChange}
+    >
       {children}
     </ReactGridLayout>
   );

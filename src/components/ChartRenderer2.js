@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useCubeQuery } from "@cubejs-client/react";
 import { Spin, Row, Col, Statistic, Table } from "antd";
@@ -25,8 +25,7 @@ import numeral from "numeral";
 
 const numberFormatter = item => numeral(item).format("0,0");
 const dateFormatter = item => moment(item).format("MMM YY");
-const colors = ["#7DB3FF", "#49457B", "#FF7C78", "#FFA233"];
-const stackIds = ["a","b","c","d"];
+const colors = ["#7DB3FF", "#49457B", "#FF7C78"];
 const xAxisFormatter = (item) => {
   if (moment(item).isValid()) {
     return dateFormatter(item)
@@ -37,7 +36,7 @@ const xAxisFormatter = (item) => {
 
 const CartesianChart = ({ resultSet, children, ChartComponent }) => (
   <ResponsiveContainer width="100%" height={350}>
-    <ChartComponent margin={{ left: 30 }} data={resultSet.chartPivot()}>
+    <ChartComponent margin={{ left: -10 }} data={resultSet.chartPivot()}>
       <XAxis axisLine={false} tickLine={false} tickFormatter={xAxisFormatter} dataKey="x" minTickGap={20} />
       <YAxis axisLine={false} tickLine={false} tickFormatter={numberFormatter} />
       <CartesianGrid vertical={false} />
@@ -81,11 +80,11 @@ const TypeToChartComponent = {
       {resultSet.seriesNames().map((series, i) => (
         <Bar
           key={series.key}
-          //stackId="a"
-          stackId = {stackIds[i]}
+          stackId="a"
           dataKey={series.key}
           name={series.title}
           fill={colors[i]}
+          onClick={event => handleBarClick(event, resultSet, series.yValues)}
         />
       ))}
     </CartesianChart>
@@ -165,6 +164,27 @@ const ChartRenderer = ({ vizState }) => {
   const renderProps = useCubeQuery(query);
   return component && renderChart(component)({ ...renderProps, pivotConfig });
 };
+
+const [drillDownQuery, setDrillDownQuery] = useState();
+const handleBarClick = (event, resultSet, yValues) => {
+  if (event.xValues != null) {
+    setDrillDownQuery(
+      resultSet.drillDown(
+        {
+          xValues: event.xValues,
+          yValues
+        }
+      )
+    );
+  }
+};
+
+const drillDownResponse = useCubeQuery(
+    drillDownQuery,
+    {
+      skip: !drillDownQuery
+    }
+  );
 
 ChartRenderer.propTypes = {
   vizState: PropTypes.object,

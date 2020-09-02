@@ -1,11 +1,24 @@
 import React from "react";
-import { Card, Menu, Button, Dropdown, Modal } from "antd";
+//import { Card, Menu, Button, Dropdown, Modal } from "antd";
+import { Card, Menu, Dropdown, Modal } from "antd";
+import styled from 'styled-components';
 import { useMutation } from "@apollo/react-hooks";
 import { Link } from "react-router-dom";
 import { Icon } from "@ant-design/compatible";
 import { GET_DASHBOARD_ITEMS } from "../graphql/queries";
 import { DELETE_DASHBOARD_ITEM } from "../graphql/mutations";
 
+const StyledCard = styled(Card)`
+  box-shadow: 0px 2px 4px rgba(141, 149, 166, 0.1);
+  border-radius: 4px;
+
+  .ant-card-head {
+    border: none;
+  }
+  .ant-card-body {
+    padding-top: 12px;
+  }
+`
 const DashboardItemDropdown = ({ itemId }) => {
   const [removeDashboardItem] = useMutation(DELETE_DASHBOARD_ITEM, {
     refetchQueries: [
@@ -47,14 +60,15 @@ const DashboardItemDropdown = ({ itemId }) => {
       placement="bottomLeft"
       trigger={["click"]}
     >
-      <Button shape="circle" icon={<Icon type="menu" />} />
+      <Icon type="menu" />
     </Dropdown>
   );
 };
 
 const DashboardItem = ({ itemId, children, title }) => (
-  <Card
+  <StyledCard
     title={title}
+    bordered={false}
     style={{
       height: "100%",
       width: "100%"
@@ -62,7 +76,7 @@ const DashboardItem = ({ itemId, children, title }) => (
     extra={<DashboardItemDropdown itemId={itemId} />}
   >
     {children}
-  </Card>
+    </StyledCard>
 );
 
 export default DashboardItem;

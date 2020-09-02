@@ -3,27 +3,27 @@ import {
   Dropdown, Menu
 } from 'antd';
 
-import {TableOutlined, BarChartOutlined, PieChartOutlined, AreaChartOutlined, LineChartOutlined, NumberOutlined, CaretDownOutlined} from '@ant-design/icons';
+import Icon from '@ant-design/icons';
 
 import styled from 'styled-components';
 
 const StyledDropdownTrigger = styled.span`
   color: #43436B;
   cursor: pointer;
-  margin-left: 6px;
+  margin-left: 13px;
 
   & > span {
-    margin: 0 2px;
+    margin: 0 8px;
   }
 `
 
 const ChartTypes = [
-  { name: 'line', title: 'Line', icon: LineChartOutlined },
-  { name: 'area', title: 'Area', icon: AreaChartOutlined },
-  { name: 'bar', title: 'Bar', icon: BarChartOutlined },
-  { name: 'pie', title: 'Pie', icon: PieChartOutlined },
-  { name: 'table', title: 'Table', icon: TableOutlined },
-  { name: 'number', title: 'Number', icon: NumberOutlined }
+  { name: 'line', title: 'Line', icon: 'line-chart' },
+  { name: 'area', title: 'Area', icon: 'area-chart' },
+  { name: 'bar', title: 'Bar', icon: 'bar-chart' },
+  { name: 'pie', title: 'Pie', icon: 'pie-chart' },
+  { name: 'table', title: 'Table', icon: 'TableOutline' },
+  { name: 'number', title: 'Number', icon: 'info-circle' }
 ];
 
 const SelectChartType = ({ chartType, updateChartType }) => {
@@ -31,7 +31,7 @@ const SelectChartType = ({ chartType, updateChartType }) => {
     <Menu>
       {ChartTypes.map(m => (
         <Menu.Item key={m.title} onClick={() => updateChartType(m.name)}>
-          <m.icon />
+          <Icon type={m.icon} />
           &nbsp;{m.title}
         </Menu.Item>
       ))}
@@ -40,11 +40,11 @@ const SelectChartType = ({ chartType, updateChartType }) => {
 
   const foundChartType = ChartTypes.find(t => t.name === chartType);
   return (
-    <Dropdown overlay={menu} lacement="bottomLeft" trigger={['click']}>
+    <Dropdown overlay={menu} icon={foundChartType.icon} lacement="bottomLeft" trigger={['click']}>
     <StyledDropdownTrigger>
-      <foundChartType.icon  />
+      <Icon type={foundChartType.icon} />
       <span>{foundChartType.title}</span>
-      <CaretDownOutlined />
+      <Icon type="caret-down" />
     </StyledDropdownTrigger>
     </Dropdown>
   );
