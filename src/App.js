@@ -14,7 +14,8 @@ import Amplify, { Auth, Hub } from 'aws-amplify';
 import Header from './components/Header';
 import aws_exports from './aws-exports';
 
-const API_URL = "http://localhost:4000";
+//const API_URL = "http://localhost:4000";
+const API_URL = "http://ec2-34-221-130-238.us-west-2.compute.amazonaws.com:4000";
 const cubejsApi = cubejs(
   async () => (await Auth.currentSession()).getIdToken().getJwtToken(),
   { apiUrl: `${API_URL}/cubejs-api/v1` }
