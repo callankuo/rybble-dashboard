@@ -37,7 +37,7 @@ const xAxisFormatter = (item) => {
 
 const CartesianChart = ({ resultSet, children, ChartComponent }) => (
   <ResponsiveContainer width="100%" height={350}>
-    <ChartComponent margin={{ left: 30 }} data={resultSet.chartPivot()}>
+    <ChartComponent margin={{ left: 40 }} data={resultSet.chartPivot()}>
       <XAxis axisLine={false} tickLine={false} tickFormatter={xAxisFormatter} dataKey="x" minTickGap={20} />
       <YAxis axisLine={false} tickLine={false} tickFormatter={numberFormatter} />
       <CartesianGrid vertical={false} />
