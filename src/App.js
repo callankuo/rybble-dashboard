@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import { withRouter } from "react-router";
 import { Layout } from "antd";
 import { InMemoryCache } from "apollo-cache-inmemory";
@@ -8,18 +8,43 @@ import AWSAppSyncClient, { AUTH_TYPE } from "aws-appsync";
 import { Rehydrated } from "aws-appsync-react";
 import cubejs from "@cubejs-client/core";
 import { CubeProvider } from "@cubejs-client/react";
-import { withAuthenticator } from "aws-amplify-react";
+import { withAuthenticator, AmplifyTheme} from "aws-amplify-react";
 import Amplify, { Auth, Hub } from 'aws-amplify';
 
 import Header from './components/Header';
 import aws_exports from './aws-exports';
-
+//Local host
 //const API_URL = "http://localhost:4000";
-const API_URL = "http://ec2-34-221-130-238.us-west-2.compute.amazonaws.com:4000";
+//aws production
+const API_URL = "http://54.212.153.56:4000";
+
 const cubejsApi = cubejs(
   async () => (await Auth.currentSession()).getIdToken().getJwtToken(),
   { apiUrl: `${API_URL}/cubejs-api/v1` }
 );
+// for user signIn theme
+const authTheme = {
+  ...AmplifyTheme,
+  sectionHeader:{
+    ...AmplifyTheme.sectionHeader,
+    color:"white",
+    backgroundColor: "gray",
+  },
+  formSection: {
+    ...AmplifyTheme.formSection,
+    backgroundColor: "silver",
+  },
+  sectionFooter: {
+    ...AmplifyTheme.sectionFooter,
+    backgroundColor: "silver"
+  },
+  button: {
+      ...AmplifyTheme.button,
+      color:"white",
+      backgroundColor: "dodgerblue"
+  }
+}
+
 
 Amplify.configure(aws_exports);
 
@@ -61,7 +86,7 @@ const App = withRouter(({ location, children }) => (
   </CubeProvider>
 ));
 
-export default withAuthenticator(App, {
+export default withAuthenticator(App, { theme: authTheme }, {
   signUpConfig: {
     hiddenDefaults: ["phone_number"]
   }

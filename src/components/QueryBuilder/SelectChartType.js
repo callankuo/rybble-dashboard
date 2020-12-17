@@ -3,7 +3,7 @@ import {
   Dropdown, Menu
 } from 'antd';
 
-import {TableOutlined, BarChartOutlined, PieChartOutlined, AreaChartOutlined, LineChartOutlined, NumberOutlined, CaretDownOutlined} from '@ant-design/icons';
+import {PictureOutlined, HeatMapOutlined, TableOutlined, BarChartOutlined, PieChartOutlined, AreaChartOutlined, LineChartOutlined, NumberOutlined, CaretDownOutlined} from '@ant-design/icons';
 
 import styled from 'styled-components';
 
@@ -22,6 +22,8 @@ const ChartTypes = [
   { name: 'area', title: 'Area', icon: AreaChartOutlined },
   { name: 'bar', title: 'Bar', icon: BarChartOutlined },
   { name: 'pie', title: 'Pie', icon: PieChartOutlined },
+  { name: 'composed', title: 'Composed', icon: PictureOutlined },
+  //{ name: 'heatmap', title: 'HeatMap', icon: HeatMapOutlined },
   { name: 'table', title: 'Table', icon: TableOutlined },
   { name: 'number', title: 'Number', icon: NumberOutlined }
 ];

@@ -58,7 +58,7 @@ const DashboardPage = () => {
     >
       <h2>There are no charts on this dashboard</h2>
       <Link to="/explore">
-        <Button type="primary" size="large" icon={<Icon type="plus" />}>
+        <Button type="primary" size="large" icon={<Icon type="plusSquare" />}>
           Add chart
         </Button>
       </Link>
